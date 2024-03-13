@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Number</title>
+    <script>
+        function main() {
+            var zoekGetal, i;
+            var getallenRij = createArray(10);
 
+            for (i = 0; i <= 9; i++) {
+                getallenRij[i] = Math.floor(Math.random() * 100);
+            }
+
+            // Display getallenRij
+            var displayString = "GetallenRij: ";
+            for (i = 0; i < getallenRij.length; i++) {
+                displayString += getallenRij[i] + " ";
+            }
+            document.getElementById("getallenRij").innerText = displayString;
+
+            document.getElementById("zoekButton").addEventListener("click", function() {
+                zoekGetal = Number(document.getElementById("zoekGetal").value);
+                i = 0;
+
+                while (getallenRij[i] != zoekGetal && i < 9) {
+                    i = i + 1;
+                }
+                if (getallenRij[9] == zoekGetal) {
+                    window.alert(zoekGetal + " staat op plek " + i);
+                }
+                if (i == 9) {
+                    window.alert("Getal niet gevonden.");
+                } else {
+                    window.alert(zoekGetal + " staat op plek " + i);
+                }
+            });
+        }
+
+        // Utility function to create an array of specified length
+        function createArray(length) {
+            var arr = new Array(length || 0);
+            var i = length;
+
+            if (arguments.length > 1) {
+                var args = Array.prototype.slice.call(arguments, 1);
+                while (i--) arr[length - 1 - i] = createArray.apply(this, args);
+            }
+
+            return arr;
+        }
+    </script>
+</head>
+<body onload="main()">
+    <h1>Zoek een Getal</h1>
+    <p>Vul een getal in en klik op Zoek om te kijken of het in de getallenRij voorkomt.</p>
+    <p id="getallenRij"></p>
+    <input type="number" id="zoekGetal" placeholder="Voer een getal in">
+    <button id="zoekButton">Zoek</button>
+</body>
+</html>
